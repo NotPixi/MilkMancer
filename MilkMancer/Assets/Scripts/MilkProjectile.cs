@@ -6,23 +6,20 @@ public class MilkProjectile : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        // Spawn splash
         Instantiate(
             splashEffect,
             collision.contacts[0].point,
             Quaternion.identity
         );
 
-        // Check if we hit a revivable skeleton
-        RevivableSkeleton skeleton =
-            collision.gameObject.GetComponent<RevivableSkeleton>();
+        Skeleton skeleton =
+            collision.collider.GetComponentInParent<Skeleton>();
 
         if (skeleton != null)
         {
             skeleton.Revive();
         }
 
-        // Destroy milk projectile
         Destroy(gameObject);
     }
 }
