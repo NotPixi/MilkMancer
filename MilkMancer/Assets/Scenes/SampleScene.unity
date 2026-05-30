@@ -857,6 +857,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4012054030432914595, guid: 09f0b1c2293f44d4e9ff796091be2801, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 588795125}
+    - target: {fileID: 4012054030432914595, guid: 09f0b1c2293f44d4e9ff796091be2801, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 5866666020463996853}
     - target: {fileID: 6531218935405902398, guid: 09f0b1c2293f44d4e9ff796091be2801, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2301,6 +2309,11 @@ Transform:
   - {fileID: 5111606776794902702}
   m_Father: {fileID: 5479152396907333047}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &5866666020463996853 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2714384219464848751, guid: 09f0b1c2293f44d4e9ff796091be2801, type: 3}
+  m_PrefabInstance: {fileID: 35869549455743700}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6383695255346360455
 GameObject:
   m_ObjectHideFlags: 0
