@@ -36,44 +36,43 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         HandleMouseLook();
-        HandleMovement();
-        HandleJumpAndGravity();
+        HandleMovementAndGravity();
     }
 
-    private void HandleMovement()
+   private void HandleMovementAndGravity()
+{
+    bool grounded = controller.isGrounded;
+
+    float horizontal = Input.GetAxisRaw("Horizontal");
+    float vertical = Input.GetAxisRaw("Vertical");
+
+    Vector3 moveDirection =
+        transform.right * horizontal +
+        transform.forward * vertical;
+
+    moveDirection.Normalize();
+
+    float currentSpeed = Input.GetKey(KeyCode.LeftShift)
+        ? sprintSpeed
+        : walkSpeed;
+
+    if (grounded && velocity.y < 0)
     {
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
-
-        Vector3 moveDirection =
-            transform.right * horizontal +
-            transform.forward * vertical;
-
-        moveDirection.Normalize();
-
-        float currentSpeed = Input.GetKey(KeyCode.LeftShift)
-            ? sprintSpeed
-            : walkSpeed;
-
-        controller.Move(moveDirection * currentSpeed * Time.deltaTime);
+        velocity.y = -2f;
     }
 
-    private void HandleJumpAndGravity()
+    if (grounded && Input.GetKeyDown(KeyCode.Space))
     {
-        if (controller.isGrounded && velocity.y < 0)
-        {
-            velocity.y = -2f;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space) && controller.isGrounded)
-        {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-        }
-
-        velocity.y += gravity * Time.deltaTime;
-
-        controller.Move(velocity * Time.deltaTime);
+        velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
     }
+
+    velocity.y += gravity * Time.deltaTime;
+
+    Vector3 finalMove = moveDirection * currentSpeed;
+    finalMove.y = velocity.y;
+
+    controller.Move(finalMove * Time.deltaTime);
+}
 
     private void HandleMouseLook()
     {
