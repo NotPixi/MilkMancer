@@ -8,9 +8,17 @@ public class MilkProjectile : MonoBehaviour
     {
         Instantiate(
             splashEffect,
-            transform.position,
+            collision.contacts[0].point,
             Quaternion.identity
         );
+
+        Skeleton skeleton =
+            collision.collider.GetComponentInParent<Skeleton>();
+
+        if (skeleton != null)
+        {
+            skeleton.Revive();
+        }
 
         Destroy(gameObject);
     }
